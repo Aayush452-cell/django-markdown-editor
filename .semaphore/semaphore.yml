@@ -14,14 +14,8 @@ blocks:
             - checkout
             - mkdir .pip_cache
             - cache restore
-            - pip install --cache-dir .pip_cache -r requirements.txt
+            - pip install --cache-dir .pip_cache -r requirements.txt martor
             - cache store
-      prologue:
-        commands:
-          - sem-version python 3.9
-          - checkout
-          - cache restore
-          - pip install --cache-dir .pip_cache -r requirements.txt
   - name: Test
     task:
       prologue:
@@ -29,7 +23,7 @@ blocks:
           - sem-version python 3.9
           - checkout
           - cache restore
-          - pip install --cache-dir .pip_cache -r requirements.txt
+          - pip install --cache-dir .pip_cache -r requirements.txt martor
       jobs:
         - name: Unit tests
           commands:
