@@ -16,6 +16,12 @@ blocks:
             - cache restore
             - pip install --cache-dir .pip_cache -r requirements.txt
             - cache store
+      prologue:
+        commands:
+          - sem-version python 3.9
+          - checkout
+          - cache restore
+          - pip install --cache-dir .pip_cache -r requirements.txt
   - name: Test
     task:
       prologue:
@@ -28,13 +34,13 @@ blocks:
         - name: Unit tests
           commands:
             - cd martor_demo
-            - python3.9 manage.py makemigrations
-            - python3.9 manage.py migrate
-            - python3.9 manage.py test
+            - python manage.py makemigrations
+            - python manage.py migrate
+            - python manage.py test
         - name: Deploy Checklist
           commands:
             - cd martor_demo
-            - python3.9 manage.py check --deploy
+            - python manage.py check --deploy
         - name: Style
           commands:
             - pip install flake8
